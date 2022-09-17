@@ -2,7 +2,7 @@ package com.seven.Blog.API.service;
 
 import com.seven.Blog.API.DTO.PostDTO;
 import com.seven.Blog.API.entity.Post;
-import com.seven.Blog.API.exception.GlobalException;
+import com.seven.Blog.API.exception.ResourceNotFoundException;
 import com.seven.Blog.API.repository.CommentRepository;
 import com.seven.Blog.API.repository.PostRepository;
 import org.modelmapper.ModelMapper;
@@ -35,12 +35,12 @@ public class PostService {
     }
 
     public PostDTO updatePost(PostDTO postDTO, long postId) {
-        if (!postRepository.existsById(postId)) throw new GlobalException("Post not found");
+        if (!postRepository.existsById(postId)) throw new ResourceNotFoundException("Post not found");
         return class_to_dto(postRepository.save(dto_to_class(postDTO)));
     }
 
     public void deletePost(long postId) {
-        if (!postRepository.existsById(postId)) throw new GlobalException("Post not found");
+        if (!postRepository.existsById(postId)) throw new ResourceNotFoundException("Post not found");
         postRepository.deleteById(postId);
     }
 

@@ -13,21 +13,25 @@ public class PostController {
     @Autowired
     private PostService postService;
 
+    // create
     @PostMapping()
     public ResponseEntity<?> createPost(@RequestBody PostDTO postDTO) {
         return new ResponseEntity<>(postService.createPost(postDTO), HttpStatus.CREATED);
     }
 
+    // read
     @GetMapping()
     public ResponseEntity<?> findAllPost() {
         return new ResponseEntity<>(postService.findAllPost(), HttpStatus.OK);
     }
 
+    // update
     @PutMapping("/{postId}")
     public ResponseEntity<?> updatePost(@RequestBody PostDTO postDTO, @PathVariable long postId) {
         return new ResponseEntity<>(postService.updatePost(postDTO, postId), HttpStatus.OK);
     }
 
+    // delete
     @DeleteMapping("/{postId}")
     public ResponseEntity<?> deletePost(@PathVariable long postId) {
         postService.deletePost(postId);

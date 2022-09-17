@@ -11,12 +11,22 @@ import java.util.Map;
 @RestControllerAdvice
 public class RootExceptionHandler {
 
-    @ExceptionHandler(GlobalException.class)
-    public ResponseEntity<?> globalExceptionHandler(GlobalException globalException) {
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<?> resourceNotFoundExceptionHandler(ResourceNotFoundException resourceNotFoundException) {
         Map<String, Object> response = new HashMap<>();
 
-        response.put("message", globalException.getMessage());
-        response.put("status", HttpStatus.BAD_GATEWAY.value());
+        response.put("message", resourceNotFoundException.getMessage());
+        response.put("status", HttpStatus.NOT_FOUND.value());
+
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<?> badRequestExceptionHandler(BadRequestException badRequestException) {
+        Map<String, Object> response = new HashMap<>();
+
+        response.put("message", badRequestException.getMessage());
+        response.put("status", HttpStatus.BAD_REQUEST.value());
 
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
