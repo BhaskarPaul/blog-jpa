@@ -18,9 +18,14 @@ public class CommentController {
         return new ResponseEntity<>(commentService.findAllByPost(postId), HttpStatus.OK);
     }
 
+    @GetMapping("user")
+    public ResponseEntity<?> findAllByUser(@RequestHeader("Authorization") String token) {
+        return new ResponseEntity<>(commentService.findAllByUser(token), HttpStatus.OK);
+    }
+
     @PostMapping("{postId}")
-    public ResponseEntity<?> createComment(@RequestBody CommentDTO commentDTO, @PathVariable long postId) {
-        return new ResponseEntity<>(commentService.createComment(commentDTO, postId), HttpStatus.OK);
+    public ResponseEntity<?> createComment(@RequestHeader("Authorization") String token, @RequestBody CommentDTO commentDTO, @PathVariable long postId) {
+        return new ResponseEntity<>(commentService.createComment(commentDTO, postId, token), HttpStatus.OK);
     }
 
     @PutMapping("{postId}/{commentId}")

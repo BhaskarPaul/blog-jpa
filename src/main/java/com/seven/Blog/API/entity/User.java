@@ -40,6 +40,9 @@ public class User implements Serializable, UserDetails {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Set<Post> postSet;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private Set<Comment> commentSet;
+
     @Override
     public String toString() {
         return "User{" +

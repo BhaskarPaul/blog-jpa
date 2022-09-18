@@ -1,8 +1,8 @@
 package com.seven.Blog.API.config;
 
-import com.seven.Blog.API.security.CustomUserDetailsService;
 import com.seven.Blog.API.security.JwtAuthenticationEntryPoint;
 import com.seven.Blog.API.security.JwtAuthenticationFilter;
+import com.seven.Blog.API.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

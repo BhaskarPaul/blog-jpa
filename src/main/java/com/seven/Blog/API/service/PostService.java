@@ -2,9 +2,11 @@ package com.seven.Blog.API.service;
 
 import com.seven.Blog.API.DTO.PostDTO;
 import com.seven.Blog.API.entity.Post;
+import com.seven.Blog.API.entity.User;
 import com.seven.Blog.API.exception.ResourceNotFoundException;
 import com.seven.Blog.API.repository.CommentRepository;
 import com.seven.Blog.API.repository.PostRepository;
+import com.seven.Blog.API.utils.GlobalMethodHelper;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,11 +24,20 @@ public class PostService {
     private CommentRepository commentRepository;
 
     @Autowired
+    private GlobalMethodHelper helper;
+
+    @Autowired
     private ModelMapper modelMapper;
 
-    public PostDTO createPost(PostDTO postDTO) {
+    public PostDTO createPost(PostDTO postDTO, String authToken) {
         Post post = postRepository.save(dto_to_class(postDTO));
+        post.setUser(helper.getCurrentUserDetails(authToken));
         return class_to_dto(post);
+    }
+
+    public Set<PostDTO> findAllByUser(String token) {
+        User user = helper.getCurrentUserDetails(token);
+        return postRepository.findByUser(user).stream().map(this::class_to_dto).collect(Collectors.toSet());
     }
 
     public Set<PostDTO> findAllPost() {
