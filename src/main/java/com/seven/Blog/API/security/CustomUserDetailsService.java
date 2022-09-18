@@ -1,6 +1,5 @@
 package com.seven.Blog.API.security;
 
-import com.seven.Blog.API.entity.User;
 import com.seven.Blog.API.exception.ResourceNotFoundException;
 import com.seven.Blog.API.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +16,6 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        User user = userRepository.findByEmail(username).orElseThrow(() -> new ResourceNotFoundException("User not found"));
-
-        return user;
+        return userRepository.findByEmail(username).orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
 }

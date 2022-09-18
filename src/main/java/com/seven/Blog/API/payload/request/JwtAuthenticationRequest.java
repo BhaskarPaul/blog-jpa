@@ -1,4 +1,4 @@
-package com.seven.Blog.API.DTO;
+package com.seven.Blog.API.payload.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,9 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDTO {
-    private long id;
-    private String username;
+public class JwtAuthenticationRequest {
     private String email;
     private String password;
 }
